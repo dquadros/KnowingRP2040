@@ -1,0 +1,39 @@
+;
+; Square Wave Generator - PIO Exemple for 'Knowing the RP2040' book
+; Copyright (c) 2022, Daniel Quadros
+;
+
+.program sqwave
+
+.wrap_target
+    set PINS, 1
+    set PINS, 0
+.wrap
+
+% c-sdk {
+// Helper function to set a state machine to run our PIO program
+static inline void sqwave_program_init(PIO pio, uint sm, uint offset, uint pin, float freq) {
+    // Get an initialized config structure
+    pio_sm_config c = sqwave_program_get_default_config(offset);
+
+    // Map the state machine's SET pin group to one pin, namely the `pin`
+    // parameter to this function.
+    sm_config_set_set_pins(&c, pin, 1);
+    
+    // Set this pin's GPIO function (connect PIO to the pad)
+    pio_gpio_init(pio, pin);
+    
+    // Set the pin direction to output at the PIO
+    pio_sm_set_consecutive_pindirs(pio, sm, pin, 1, true);
+
+    // Configure the clock, the period of the square wave will two PIO cycles
+    float div = clock_get_hz(clk_sys) / (freq * 2);
+    sm_config_set_clkdiv(&c, div);
+
+    // Load our configuration, and jump to the start of the program
+    pio_sm_init(pio, sm, offset, &c);
+    
+    // Set the state machine running
+    pio_sm_set_enabled(pio, sm, true);
+}
+%}

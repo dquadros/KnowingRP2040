@@ -1,0 +1,46 @@
+;
+; Serial data/clock receiver - PIO Example for 'Knowing the RP2040' book
+; Copyright (c) 2022, Daniel Quadros
+;
+
+.program serialrx
+
+.wrap_target
+    wait 1 pin 1    // wait for clock high
+    in pins, 1      // shift in data
+    wait 0 pin 1    // wait for clock back to low
+.wrap
+
+% c-sdk {
+// Helper function to set a state machine to run our PIO program
+static inline void serialrx_program_init(PIO pio, uint sm, uint offset, 
+    uint dataPin, float freq) {
+
+    // Get an initialized config structure
+    pio_sm_config c = serialrx_program_get_default_config(offset);
+
+    // Map the state machine's IN pin group to pins starting at `dataPin`
+    sm_config_set_in_pins(&c, dataPin);
+    
+    // Set the pins GPIO function (connect PIO to the pad)
+    pio_gpio_init(pio, dataPin);
+    pio_gpio_init(pio, dataPin+1);
+    
+    // Set the pins directions to input at the PIO
+    pio_sm_set_pindirs_with_mask(pio, sm, (3u << dataPin), 0);
+
+    // Configure the Rx FIFO
+    sm_config_set_in_shift (&c, true, true, 12);
+    sm_config_set_fifo_join(&c, PIO_FIFO_JOIN_RX);
+
+    // Configure the clock, we will use double of the transmitter's clock
+    float div = clock_get_hz(clk_sys) / (freq * 4);
+    sm_config_set_clkdiv(&c, div);
+
+    // Load our configuration, and jump to the start of the program
+    pio_sm_init(pio, sm, offset, &c);
+    
+    // Set the state machine running
+    pio_sm_set_enabled(pio, sm, true);
+}
+%}

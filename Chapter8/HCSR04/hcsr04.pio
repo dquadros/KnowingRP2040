@@ -1,0 +1,70 @@
+;
+; Interface to HC-SR04 sensor - PIO Example for 'Knowing the RP2040' book
+; Copyright (c) 2022, Daniel Quadros
+;
+
+.program hcsr04
+
+.wrap_target
+    // wait for a request
+    pull
+    mov x, osr      // data is timeout
+
+    // generate a 10 usec (20 cycles) trigger pulse
+    set pins, 1 [19]
+    set pins, 0
+
+    // wait for the start of the echo pulse
+    wait 1 pin 0
+
+    // wait for the end of the echo pulse
+    // decrements x each 2 cycles (1 usec)
+wait_for_echo:
+    jmp pin, continue
+    jmp done
+continue:
+    jmp x--,  wait_for_echo
+done:
+    mov isr, x
+    push
+.wrap
+
+% c-sdk {
+// Helper function to set a state machine to run our PIO program
+static inline void hcsr04_program_init(PIO pio, uint sm, uint offset, 
+    uint triggerPin, uint echoPin) {
+
+    // Get an initialized config structure
+    pio_sm_config c = hcsr04_program_get_default_config(offset);
+
+    // Map the state machine's pin groups
+    sm_config_set_set_pins(&c, triggerPin, 1);
+    sm_config_set_in_pins(&c, echoPin);
+    sm_config_set_jmp_pin(&c, echoPin);
+    
+    // Set the pins directions at the PIO
+    pio_sm_set_consecutive_pindirs(pio, sm, triggerPin, 1, true);
+    pio_sm_set_consecutive_pindirs(pio, sm, echoPin, 1, false);
+
+    // Make sure trigger is low
+    pio_sm_set_pins_with_mask(pio, sm, 1 << triggerPin, 0);
+
+    // Set the pins GPIO function (connect PIO to the pad), 
+    pio_gpio_init(pio, triggerPin);
+    pio_gpio_init(pio, echoPin);
+    
+    // Configure the FIFOs
+    sm_config_set_in_shift (&c, true, false, 1);
+    sm_config_set_out_shift (&c, true, false, 1);
+
+    // Configure the clock for 2 MHz
+    float div = clock_get_hz(clk_sys) / 2000000;
+    sm_config_set_clkdiv(&c, div);
+
+    // Load our configuration, and jump to the start of the program
+    pio_sm_init(pio, sm, offset, &c);
+    
+    // Set the state machine running
+    pio_sm_set_enabled(pio, sm, true);
+}
+%}

@@ -1,0 +1,52 @@
+;
+; Serial data/clock transmitter - PIO Example for 'Knowing the RP2040' book
+; Copyright (c) 2022, Daniel Quadros
+;
+
+.program serialtx
+.side_set 1
+
+.wrap_target
+    out pins,1 side 0
+    nop side 1
+.wrap
+
+% c-sdk {
+// Helper function to set a state machine to run our PIO program
+static inline void serialtx_program_init(PIO pio, uint sm, uint offset, 
+    uint dataPin, uint clockPin, float freq) {
+
+    // Get an initialized config structure
+    pio_sm_config c = serialtx_program_get_default_config(offset);
+
+    // Map the state machine's OUT pin group to one pin, namely the `dataPin`
+    // parameter to this function.
+    sm_config_set_out_pins(&c, dataPin, 1);
+    
+    // Map the state machine's SIDE SET pin group to one pin, namely the `clockPin`
+    // parameter to this function.
+    sm_config_set_sideset_pins(&c, clockPin);
+    
+    // Set the pins GPIO function (connect PIO to the pad)
+    pio_gpio_init(pio, dataPin);
+    pio_gpio_init(pio, clockPin);
+    
+    // Set the pins directions to output at the PIO
+    pio_sm_set_pindirs_with_mask(pio, sm, (1u << dataPin) | (1u << clockPin),
+        (1u << dataPin) | (1u << clockPin));
+
+    // Set the Tx FIFO
+    sm_config_set_out_shift (&c, true, true, 12);
+    sm_config_set_fifo_join(&c, PIO_FIFO_JOIN_TX);
+
+    // Configure the clock, the bit time will two PIO cycles
+    float div = clock_get_hz(clk_sys) / (freq * 2);
+    sm_config_set_clkdiv(&c, div);
+
+    // Load our configuration, and jump to the start of the program
+    pio_sm_init(pio, sm, offset, &c);
+    
+    // Set the state machine running
+    pio_sm_set_enabled(pio, sm, true);
+}
+%}

@@ -13,3 +13,20 @@ Organization of the files follow the chapters of the book.
 
 Running code in both ARM cores, with synchronization.
 
+## Chapter 8 - The PIO
+
+### SquareWave
+
+Uses the PIO to generate a square wave in a pin.
+
+### SerialTx
+
+Serially transmit data with a clock.
+
+### SerialRx
+
+Receive the data sent by SerialTx.
+
+### HCSR04
+
+Use the PIO to interface an HC-SR04 ultrasonic sensor.
