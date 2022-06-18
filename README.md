@@ -30,3 +30,9 @@ Receive the data sent by SerialTx.
 ### HCSR04
 
 Use the PIO to interface an HC-SR04 ultrasonic sensor.
+
+## Chapter 9 - The UART
+
+### UartSum
+
+Read numbers through the UART and print the sum.
