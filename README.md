@@ -36,3 +36,13 @@ Use the PIO to interface an HC-SR04 ultrasonic sensor.
 ### UartSum
 
 Read numbers through the UART and print the sum.
+
+## Chapter 13 - A Brief Introduction to USB
+
+### KbdDevice
+
+A five key USB keyboard device
+
+### UsbSerial
+
+A very basic serial to usb adapter.
