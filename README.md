@@ -37,6 +37,12 @@ Use the PIO to interface an HC-SR04 ultrasonic sensor.
 
 Read numbers through the UART and print the sum.
 
+## Chapter 12 - Analog Input: The ADC
+
+### AdcDemo
+
+Use the ADC to read the internal temperature sensor and an external light sensor (LDR).  
+
 ## Chapter 13 - A Brief Introduction to USB
 
 ### KbdDevice
