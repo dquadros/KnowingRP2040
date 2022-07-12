@@ -13,6 +13,16 @@ Organization of the files follow the chapters of the book.
 
 Running code in both ARM cores, with synchronization.
 
+## Chapter 7 - GPIO, Pad and PWM
+
+### PWMDemo
+
+Generating PWM signals.
+
+### PWMMeasure
+
+Using the PWM peripheral to measure frequency and duty cycle.
+
 ## Chapter 8 - The PIO
 
 ### SquareWave
