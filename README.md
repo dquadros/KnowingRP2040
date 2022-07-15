@@ -13,6 +13,24 @@ Organization of the files follow the chapters of the book.
 
 Running code in both ARM cores, with synchronization.
 
+## Chapter 6 - Clock Generation, Timer, Watchdog and RTC
+
+### ClocksDemo
+
+Measuring the clocks, changing the processors clock and outputting a clock in a GPIO pin.
+
+### RTCDemo
+
+Setting the Real Time Clock and using its alarms.
+
+### TimerDemo
+
+Using the System Timer.
+
+### WatchdogDemo
+
+Watchdog demonstration.
+
 ## Chapter 7 - GPIO, Pad and PWM
 
 ### GPIO7Segment
