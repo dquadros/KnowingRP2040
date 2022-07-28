@@ -73,6 +73,12 @@ Using the PIO to interface an HC-SR04 ultrasonic sensor.
 
 Reading numbers through the UART and print the sum.
 
+## Chapter 11 - Communication Using SPI
+
+### ADXL345
+
+Using SPI to interface an ADXL345 accelerometer.
+
 ## Chapter 12 - Analog Input: The ADC
 
 ### AdcDemo
