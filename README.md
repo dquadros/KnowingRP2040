@@ -73,6 +73,16 @@ Using the PIO to interface an HC-SR04 ultrasonic sensor.
 
 Reading numbers through the UART and print the sum.
 
+## Chapter 1o - Communication Using I^2^C
+
+### I2CScanner
+
+Finding the addresses of the devices connected to a I^2^C bus.
+
+### I2CEEPROM
+
+Using an I^2^C 24C32 EEPROM.
+
 ## Chapter 11 - Communication Using SPI
 
 ### ADXL345
