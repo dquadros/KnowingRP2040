@@ -1,7 +1,7 @@
 # KnowingRP2040
 Examples for the **Knowing the RP2040** book.
 
-This examples were tested with the Raspberry Pi Pico C/C++ SDK v1.3 and the Raspberry Pi Pico board.
+This examples were tested with the Raspberry Pi Pico C/C++ SDK v1.4.0 and the Raspberry Pi Pico board.
 
 To compile and run the code follow instructions on the Raspberry Pi Pico C/C++ SDK Users Guide.
 
@@ -12,6 +12,16 @@ Organization of the files follow the chapters of the book.
 ### Dual Core
 
 Running code in both ARM cores, with synchronization.
+
+## Chapter 4 - Reset, Interrupts and Power Control
+
+### PioInt
+
+Generating and handling PIO interrupts.
+
+### Sleep
+
+Putting the RP2040 in sleep and dormant modes.
 
 ## Chapter 6 - Clock Generation, Timer, Watchdog and RTC
 
