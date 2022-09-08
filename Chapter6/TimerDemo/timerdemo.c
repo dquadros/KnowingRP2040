@@ -47,7 +47,7 @@ int main() {
     // Wait for the alarm at random times
     while (true) {
         fired = false;
-        uint32_t delay = 1000 * (1 + rand() % 30);  // 1 a 30 segundos
+        uint32_t delay = 1000 * (1 + rand() % 30);  // 1 to 30 sconds
         absolute_time_t now;
         update_us_since_boot(&now, time_us_64());
         absolute_time_t target =  delayed_by_ms(now, delay);

@@ -23,6 +23,16 @@ Generating and handling PIO interrupts.
 
 Putting the RP2040 in sleep and dormant modes.
 
+## Chapter 5 - Memory, Addresses and DMA
+
+### AdcDma
+
+Collecting ADC data using DMA.
+
+### SpiDma
+
+Sending Data to a SPI LCD Display using DMA.
+
 ## Chapter 6 - Clock Generation, Timer, Watchdog and RTC
 
 ### ClocksDemo
