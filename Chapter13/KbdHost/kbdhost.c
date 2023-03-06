@@ -67,8 +67,7 @@ int main(void)
   serial_init();
 
   // Initialize the USB Stack
-  board_init();
-  tusb_init();
+  tuh_init(BOARD_TUH_RHPORT);
 
   // Main loop
   while (1)

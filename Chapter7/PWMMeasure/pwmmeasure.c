@@ -3,7 +3,7 @@
  * @author Daniel Quadros
  * @brief Example of using the PWM peripheral in the RP2040 for
  *        measuring frequence and duty cycle
- *        This is am expansion of the measure_duty_cycle SDK example
+ *        This is an expansion of the measure_duty_cycle SDK example
  * @version 0.1
  * @date 2022-07-11
  * 

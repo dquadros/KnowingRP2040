@@ -1,7 +1,7 @@
 # KnowingRP2040
 Examples for the **Knowing the RP2040** book.
 
-This examples were tested with the Raspberry Pi Pico C/C++ SDK v1.4.0 and the Raspberry Pi Pico board.
+This examples were tested with the Raspberry Pi Pico C/C++ SDK v1.5.0 and the Raspberry Pi Pico board.
 
 To compile and run the code follow instructions on the Raspberry Pi Pico C/C++ SDK Users Guide.
 
@@ -106,6 +106,11 @@ Finding the addresses of the devices connected to a I^2^C bus.
 ### I2CEEPROM
 
 Using an I^2^C 24C32 EEPROM.
+
+### I2CDevice
+
+Version 1.5 of the SDK introduced a library for implementing
+i2c slave devices. This example uses it to create a RTC device.
 
 ## Chapter 11 - Communication Using SPI
 
