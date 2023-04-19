@@ -33,9 +33,11 @@
 int main() {
     // Init stdio
     stdio_init_all();
+    #ifdef LIB_PICO_STDIO_USB
     while (!stdio_usb_connected()) {
         sleep_ms(100);
     }
+    #endif
     printf("\nPWM Example\n");
 
     // Find out which PWM slice is connected to the pins

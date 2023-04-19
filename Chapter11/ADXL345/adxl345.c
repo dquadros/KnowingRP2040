@@ -68,9 +68,11 @@ static inline void ss_deselect() {
 int main() {
     // Start stdio and wait for USB connection
     stdio_init_all();
+    #ifdef LIB_PICO_STDIO_USB
     while (!stdio_usb_connected()) {
         sleep_ms(100);
     }
+    #endif
     printf("Hello, ADXL345!\n");
 
     // Set up the SS pin

@@ -17,9 +17,11 @@
 int main() {
     // Init sdio
     stdio_init_all();
+    #ifdef LIB_PICO_STDIO_USB
     while (!stdio_usb_connected()) {
         sleep_ms(100);
     }
+    #endif
 
     printf("Watchdog Example\n\n");
     if (watchdog_caused_reboot()) {

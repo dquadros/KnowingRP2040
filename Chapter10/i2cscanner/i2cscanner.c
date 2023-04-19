@@ -25,9 +25,11 @@
 int main() {
     // Start stdio and wait for USB connection
     stdio_init_all();
+    #ifdef LIB_PICO_STDIO_USB
     while (!stdio_usb_connected()) {
         sleep_ms(100);
     }
+    #endif
 
     // Set up I2C
     uint baud = i2c_init (I2C_ID, BAUD_RATE);

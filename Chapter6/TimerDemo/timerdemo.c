@@ -27,9 +27,11 @@ void rotAlarm(uint alarm_num) {
 // Main program
 int main() {
     stdio_init_all();
+    #ifdef LIB_PICO_STDIO_USB
     while (!stdio_usb_connected()) {
         sleep_ms(100);
     }
+    #endif
 
     printf("Timer Example\n\n");
 

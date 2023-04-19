@@ -50,9 +50,11 @@ void on_sm2_int() {
 int main() {
     // Start stdio and wait for USB connection
     stdio_init_all();
+    #ifdef LIB_PICO_STDIO_USB
     while (!stdio_usb_connected()) {
         sleep_ms(100);
     }
+    #endif
     printf ("PIO Interrupt demo\n");
 
     // Init the critical section

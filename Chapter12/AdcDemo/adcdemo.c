@@ -33,9 +33,11 @@ const float conversionFactor = 3.3f / (1 << 12);
 int main() {
     // Init stdio
     stdio_init_all();
+    #ifdef LIB_PICO_STDIO_USB
     while (!stdio_usb_connected()) {
         sleep_ms(100);
     }
+    #endif
     printf("\nADC Example\n");
 
     // Init ADC
